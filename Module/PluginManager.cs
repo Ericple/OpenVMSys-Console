@@ -34,7 +34,7 @@ namespace OpenVMSys_Console.Module
             }
             catch (Exception e)
             {
-                Output.PrintError("Plugin load error: " + e.Message, null);
+                Output.PrintError("Plugin load error: " + e.Message + e.Data, null);
                 try
                 {
                     var configStream = new FileStream(Path.Join(new String[] { "pluginConfig" }), FileMode.OpenOrCreate);
