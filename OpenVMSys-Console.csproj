@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="OpenVMSys-Core">
-      <HintPath>bin\Debug\net6.0\OpenVMSys-Core.dll</HintPath>
+    <Reference Include="OpenVMSysPluginSystem">
+      <HintPath>..\OpenVMSysPluginSystem\bin\Release\net6.0\OpenVMSysPluginSystem.dll</HintPath>
     </Reference>
   </ItemGroup>
 

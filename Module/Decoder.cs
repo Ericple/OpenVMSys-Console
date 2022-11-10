@@ -1,9 +1,10 @@
-﻿namespace OpenVMSys_Console.Module
+﻿using OpenVMSysPluginSystem;
+namespace OpenVMSys_Console.Module
 {
     internal class Decoder
     {
         private static bool serviceIsRunning = false;
-        private static System.Diagnostics.Process process;
+        private static System.Diagnostics.Process? process;
         private static OperatingSystem operatingSystem = Environment.OSVersion;
         private static PluginManager pluginManager = new();
         public static void Decode(string mainArg, string[] args, string[] appStartArgs)
@@ -63,7 +64,7 @@
                                 Service.Create(args[1], int.Parse(args[2]));
                                 Output.PrintResult("key added");
                             }
-                            catch (Exception e)
+                            catch
                             {
                                 Output.PrintError("\nBroken argument(s), add -help to get help list.", HelpList.ApiKeyAdd());
                             }
@@ -104,12 +105,10 @@
                     }
                 case "plugin":
                     {
-                        var pm = new PluginManager();
-                        var IPM = new InternalPluginManager();
-                        var pluginConfig = IPM.GetConfig();
+                        var IPM = new PluginManager();
                         if (args.Contains("l"))
                         {
-                            var pluginCore = new OpenVMSys_Core.Plugins.OpenVMSysPluginCore();
+                            var pluginCore = new OpenVMSysPluginCore();
                             var pluginList = pluginCore.LoadAllPlugins();
                             foreach(var plugin in pluginList)
                             {

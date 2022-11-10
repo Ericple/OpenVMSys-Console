@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace OpenVMSys_Console.Module
 {
@@ -35,7 +31,7 @@ namespace OpenVMSys_Console.Module
                 {
                     haveMulti = "";
                 }
-                System.Console.WriteLine("{0} SecurityKey{1} found", KeyCollection.Count,haveMulti);
+                Console.WriteLine("{0} SecurityKey{1} found", KeyCollection.Count,haveMulti);
                 foreach (var SecurityKey in KeyCollection)
                 {
                     System.Console.WriteLine("{0}\t{1}", SecurityKey.Key, SecurityKey.Permission);
@@ -46,7 +42,7 @@ namespace OpenVMSys_Console.Module
             catch
             {
                 File.WriteAllText(keyFilePath, "");
-                System.Console.WriteLine("SecurityKey initialized");
+                Console.WriteLine("SecurityKey initialized");
             }
         }
         public bool Auth(string SecurityKey, int permission)
@@ -56,7 +52,7 @@ namespace OpenVMSys_Console.Module
             {
                 if (SecurityKey == key.Key && permission >= key.Permission)
                 {
-                    System.Console.WriteLine("No Match key");
+                    Console.WriteLine("No Match key");
                     return true;
                 }
             }
@@ -67,7 +63,7 @@ namespace OpenVMSys_Console.Module
         public bool Create(string value, int permission)
         {
             KeyCollection.Insert(KeyCollection.Count, new SecurityKey(value, permission));
-            System.Console.WriteLine("Key Count: {0}", KeyCollection.Count);
+            Console.WriteLine("Key Count: {0}", KeyCollection.Count);
             var keyStream = new FileStream(keyFilePath, FileMode.Append);
             var keyWriter = new StreamWriter(keyStream);
             keyWriter.WriteLine("\n" + value + "\t" + permission);
@@ -106,8 +102,8 @@ namespace OpenVMSys_Console.Module
         {
             string str = string.Empty;
             long num2 = DateTime.Now.Ticks + this._rep;
-            this._rep++;
-            Random random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> this._rep)));
+            _rep++;
+            Random random = new(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> _rep)));
             for (int i = 0; i < 20; i++)
             {
                 char ch;
@@ -120,7 +116,7 @@ namespace OpenVMSys_Console.Module
                 {
                     ch = (char)(0x41 + ((ushort)(num % 0x1a)));
                 }
-                str = str + ch.ToString();
+                str += ch.ToString();
             }
 
             return str;
